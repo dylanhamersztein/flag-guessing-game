@@ -11,12 +11,7 @@ const FlagGuessingGame = () => {
   return (
     <>
       <div className="game-container">
-        <div className="game-title">
-          <h1>Guess the Flag!</h1>
-        </div>
-        <div className="game-body">
-          {gameStatus === "stopped" ? <GameIntro /> : <Game />}
-        </div>
+        {gameStatus === "stopped" ? <GameIntro /> : <Game />}
       </div>
       {gameStatus === "lost" && <GameLost />}
     </>

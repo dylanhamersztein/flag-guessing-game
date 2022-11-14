@@ -68,7 +68,9 @@ describe("game reducer", () => {
 
     expect(nextRound.answer).toBeDefined();
     expect(nextRound.options.length).not.toEqual(0);
-    expect(nextRound.options).toContain(nextRound.answer);
+    expect(nextRound.options.map(({ value }) => value)).toContain(
+      nextRound.answer
+    );
     expect(newLevel).toBeGreaterThan(initialState.level);
   });
 

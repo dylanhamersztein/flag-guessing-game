@@ -1,6 +1,6 @@
 import "./GameInfo.scss";
 import { useAppSelector } from "../../app/hooks";
-import { HeartRow } from "../heart/HeartRow";
+import { HeartRow } from "../heart-row/HeartRow";
 
 type Props = {};
 export const GameInfo = (props: Props) => {
