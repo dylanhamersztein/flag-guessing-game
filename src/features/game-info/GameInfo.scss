@@ -1,0 +1,11 @@
+.score-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  & > * {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5vw;
+  }
+}
