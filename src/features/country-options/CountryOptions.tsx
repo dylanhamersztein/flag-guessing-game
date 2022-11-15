@@ -4,10 +4,9 @@ import { CountryOptionButton } from "../button/CountryOptionButton";
 import * as React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
+  correctAnswer,
   incorrectAnswer,
-  incrementScore,
   loseALife,
-  nextLevel,
   RoundOption,
 } from "../game/gameSlice";
 
@@ -25,8 +24,7 @@ export const CountryOptions = (props: Props) => {
 
   const onClick = (e: any) => {
     if (e.currentTarget.id === countryCode) {
-      dispatch(incrementScore());
-      dispatch(nextLevel());
+      dispatch(correctAnswer());
     } else {
       dispatch(loseALife());
       dispatch(incorrectAnswer(e.currentTarget.id));

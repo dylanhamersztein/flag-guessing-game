@@ -1,6 +1,7 @@
 import gameReducer, {
+  correctAnswer,
   GameState,
-  incrementScore,
+  incorrectAnswer,
   loseALife,
   nextLevel,
   resetGame,
@@ -11,6 +12,7 @@ import { countries } from "./countries";
 describe("game reducer", () => {
   const initialState: GameState = {
     currentRound: {
+      passed: false,
       answer: undefined,
       options: [],
       difficulty: { numOptions: 3, scoreForRightAnswer: 200 },
@@ -53,13 +55,6 @@ describe("game reducer", () => {
     });
   });
 
-  it("should increment the score appropriately for the given level", () => {
-    expect(gameReducer(initialState, incrementScore())).toEqual({
-      ...initialState,
-      score: initialState.currentRound.difficulty.scoreForRightAnswer,
-    });
-  });
-
   it("should set up the next level", () => {
     const { currentRound: nextRound, level: newLevel } = gameReducer(
       initialState,
@@ -78,6 +73,7 @@ describe("game reducer", () => {
     let state: GameState = {
       ...initialState,
       currentRound: {
+        passed: false,
         answer: undefined,
         options: [],
         difficulty: { numOptions: 0, scoreForRightAnswer: 200 },
@@ -90,5 +86,38 @@ describe("game reducer", () => {
     };
 
     expect(gameReducer(state, resetGame())).toEqual(initialState);
+  });
+
+  it("should set an incorrect answer as clicked", () => {
+    let currentState = gameReducer(initialState, startGame());
+    currentState = gameReducer(currentState, nextLevel());
+
+    expect(
+      currentState.currentRound.options.filter(({ clicked }) => clicked).length
+    ).toEqual(0);
+
+    const anIncorrectAnswer = currentState.currentRound.options
+      .map(({ value }) => value)
+      .find(({ code }) => code !== currentState.currentRound.answer!!.code)!!;
+
+    currentState = gameReducer(
+      currentState,
+      incorrectAnswer(anIncorrectAnswer.code)
+    );
+
+    const clickedOptions = currentState.currentRound.options.filter(
+      ({ clicked }) => clicked
+    );
+    expect(clickedOptions.length).toEqual(1);
+    expect(clickedOptions[0].value.code).toEqual(anIncorrectAnswer.code);
+  });
+
+  it("should increment score and mark round as passed", () => {
+    let currentState = gameReducer(initialState, startGame());
+    currentState = gameReducer(currentState, nextLevel());
+    currentState = gameReducer(currentState, correctAnswer());
+
+    expect(currentState.score).toBeGreaterThan(initialState.score);
+    expect(currentState.currentRound.passed).toBeTruthy();
   });
 });
