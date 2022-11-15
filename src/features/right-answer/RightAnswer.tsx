@@ -1,6 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { nextLevel } from "../game/gameSlice";
 import "./RightAnswer.scss";
+import { ModalDialog } from "../modal-dialog/ModalDialog";
+import { Button } from "../button/Button";
 
 type Props = {};
 export const RightAnswer = (props: Props) => {
@@ -16,17 +18,11 @@ export const RightAnswer = (props: Props) => {
   return (
     <>
       {show && (
-        <div className="modal">
-          <div className="modal-body">
-            <div className="content">
-              <h2 className="title">Correct!</h2>
-              <p>Score: {playerScore}</p>
-              <button className="button" onClick={onClick}>
-                Next Level
-              </button>
-            </div>
-          </div>
-        </div>
+        <ModalDialog>
+          <h2 className="title">Correct!</h2>
+          <p>Score: {playerScore}</p>
+          <Button text="Next Level" onClick={onClick} />
+        </ModalDialog>
       )}
     </>
   );

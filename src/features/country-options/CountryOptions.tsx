@@ -1,6 +1,6 @@
 import "./CountryOptions.scss";
 import { Country } from "../game/countries";
-import { CountryOptionButton } from "../button/CountryOptionButton";
+import { Button } from "../button/Button";
 import * as React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
@@ -35,7 +35,7 @@ export const CountryOptions = (props: Props) => {
     <div className="options">
       {possibleAnswers.map(
         ({ clicked, value: { code, name } }: RoundOption<Country>) => (
-          <CountryOptionButton
+          <Button
             id={code}
             key={code}
             text={name}
