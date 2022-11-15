@@ -1,0 +1,25 @@
+$button-bg: #0e9f6e;
+$button-hover-bg: #bcf0da;
+
+.button {
+  padding: 1vw;
+  background-color: $button-bg;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: $button-hover-bg;
+  }
+}
+
+.no-hover {
+  pointer-events: none;
+}
+
+.incorrect {
+  background-color: #a44a3f;
+}
+
+.correct {
+  background-color: #2e933c;
+}
