@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Button } from "../button/Button";
+import { CountryOptionButton } from "../button/CountryOptionButton";
 import { resetGame } from "../game/gameSlice";
 import "./GameLost.scss";
 
@@ -13,7 +13,10 @@ export const GameLost = (props: Props) => {
       <div className="modal-body">
         <h1>You've lost!</h1>
         <h3>Your score was {playerScore}</h3>
-        <Button text="Start Again" onClick={() => dispatch(resetGame())} />
+        <CountryOptionButton
+          text="Start Again"
+          onClick={() => dispatch(resetGame())}
+        />
       </div>
     </div>
   );

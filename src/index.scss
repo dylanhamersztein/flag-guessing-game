@@ -1,15 +1,43 @@
+$card-box-shadow: rgba(0, 0, 0, 0.25) 0 54px 55px,
+  rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+  rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+$bg-color: #def7ec;
+$text-color: #014737;
+$card-color: #84e1bc;
+$button-bg: #0e9f6e;
+$button-hover-bg: #bcf0da;
+
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: $bg-color;
+  color: $text-color;
 }
 
 #root {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
+}
 
-    box-sizing: border-box;
+.button {
+  padding: 1vw;
+  background-color: $button-bg;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: $button-hover-bg;
+  }
+}
+
+.card {
+  background-color: $card-color;
+  border-radius: 50px;
+  box-shadow: $card-box-shadow;
 }
