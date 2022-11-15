@@ -34,6 +34,7 @@ export interface RoundState {
   answer?: Country;
   options: RoundOption<Country>[];
   difficulty: Difficulty;
+  passed: boolean;
 }
 
 export interface GameState {
@@ -55,6 +56,7 @@ const initialState: GameState = {
     answer: undefined,
     options: [],
     difficulty: levelToDifficulty[1],
+    passed: false,
   },
 };
 
@@ -72,11 +74,9 @@ export const gameSlice = createSlice({
         state.gameStatus = "lost";
       }
     },
-    incrementScore: (state) => {
-      state.score += state.currentRound.difficulty.scoreForRightAnswer;
-    },
     nextLevel: (state) => {
       state.level += 1;
+      state.currentRound.passed = false;
 
       state.currentRound.difficulty =
         levelToDifficulty[state.level] || state.currentRound.difficulty;
@@ -111,6 +111,10 @@ export const gameSlice = createSlice({
 
       clickedOption!!.clicked = true;
     },
+    correctAnswer: (state) => {
+      state.score += state.currentRound.difficulty.scoreForRightAnswer;
+      state.currentRound.passed = true;
+    },
     resetGame: (state) => initialState,
   },
 });
@@ -119,9 +123,9 @@ export const {
   startGame,
   resetGame,
   loseALife,
-  incrementScore,
   nextLevel,
   incorrectAnswer,
+  correctAnswer,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
