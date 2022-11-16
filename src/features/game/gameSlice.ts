@@ -1,5 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { countries, Country } from "./countries";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FlagApi } from "../../app/flagApi";
+
+export type Country = {
+  code: string;
+  name: string;
+};
 
 export interface RoundOption<T> {
   value: T;
@@ -51,7 +56,7 @@ const initialState: GameState = {
   lives: 3,
   score: 0,
   level: 0,
-  countries,
+  countries: [],
   currentRound: {
     answer: undefined,
     options: [],
@@ -59,6 +64,21 @@ const initialState: GameState = {
     passed: false,
   },
 };
+
+export const fetchAllFlagCodes = createAsyncThunk(
+  "game/fetchFlagCodes",
+  async () => {
+    const response = await FlagApi.getAllFlagCodes();
+    const countryCodeToCountryName = await response.json();
+
+    return Object.keys(countryCodeToCountryName)
+      .filter((countryCode) => countryCode.length === 2)
+      .map((code) => ({
+        code,
+        name: countryCodeToCountryName[code],
+      }));
+  }
+);
 
 export const gameSlice = createSlice({
   name: "game",
@@ -117,6 +137,13 @@ export const gameSlice = createSlice({
     },
     resetGame: (state) => initialState,
   },
+  extraReducers: (builder) =>
+    builder.addCase(
+      fetchAllFlagCodes.fulfilled,
+      (state, { payload }: PayloadAction<Country[]>) => {
+        state.countries = payload;
+      }
+    ),
 });
 
 export const {
