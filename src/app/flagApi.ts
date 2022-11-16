@@ -1,7 +1,8 @@
 export class FlagApi {
-  static getAllFlagCodes = async () =>
-    await fetch("https://flagcdn.com/en/codes.json");
+  static getAllFlagCodes = async (): Promise<{
+    [key: string]: string;
+  }> => await (await fetch("https://flagcdn.com/en/codes.json")).json();
 
-  static getFlagForCode = async (code: string) =>
-    await fetch(`https://flagcdn.com/256x192/${code}.png`);
+  static getFlagBlobForCode = async (code: string): Promise<Blob> =>
+    await (await fetch(`https://flagcdn.com/256x192/${code}.png`)).blob();
 }

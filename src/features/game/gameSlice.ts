@@ -68,8 +68,7 @@ const initialState: GameState = {
 export const fetchAllFlagCodes = createAsyncThunk(
   "game/fetchFlagCodes",
   async () => {
-    const response = await FlagApi.getAllFlagCodes();
-    const countryCodeToCountryName = await response.json();
+    const countryCodeToCountryName = await FlagApi.getAllFlagCodes();
 
     return Object.keys(countryCodeToCountryName)
       .filter((countryCode) => countryCode.length === 2)

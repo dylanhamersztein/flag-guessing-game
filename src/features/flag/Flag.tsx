@@ -12,8 +12,7 @@ export const Flag = (props: Props) => {
   const [flagObjectUrl, setFlagObjectUrl] = useState<any>(undefined);
 
   useEffect(() => {
-    FlagApi.getFlagForCode(countryCode)
-      .then((res) => res.blob())
+    FlagApi.getFlagBlobForCode(countryCode)
       .then(URL.createObjectURL)
       .then(setFlagObjectUrl);
   }, [countryCode, setFlagObjectUrl]);
