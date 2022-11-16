@@ -1,10 +1,10 @@
 import "./CountryOptions.scss";
-import { Country } from "../game/countries";
 import { Button } from "../button/Button";
 import * as React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   correctAnswer,
+  Country,
   incorrectAnswer,
   loseALife,
   RoundOption,

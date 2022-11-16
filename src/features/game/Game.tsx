@@ -8,13 +8,11 @@ import { Card } from "../card/Card";
 type Props = {};
 export const Game = (props: Props) => {
   return (
-    <Card>
-      <div className="game-body">
-        <Flag />
-        <CountryOptions />
-        <GameInfo />
-        <RightAnswer />
-      </div>
+    <Card width="50vw" height="70vh">
+      <Flag />
+      <CountryOptions />
+      <GameInfo />
+      <RightAnswer />
     </Card>
   );
 };

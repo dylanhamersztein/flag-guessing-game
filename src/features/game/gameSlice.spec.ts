@@ -7,7 +7,6 @@ import gameReducer, {
   resetGame,
   startGame,
 } from "./gameSlice";
-import { countries } from "./countries";
 
 describe("game reducer", () => {
   const initialState: GameState = {
@@ -18,10 +17,26 @@ describe("game reducer", () => {
       difficulty: { numOptions: 3, scoreForRightAnswer: 200 },
     },
     gameStatus: "stopped",
-    countries,
+    countries: [],
     level: 0,
     lives: 3,
     score: 0,
+  };
+
+  const initialStateWithLoadedCountries = {
+    ...initialState,
+    countries: [
+      { name: "Afghanistan", code: "AF" },
+      { name: "Aland Islands", code: "AX" },
+      { name: "Albania", code: "AL" },
+      { name: "Algeria", code: "DZ" },
+      { name: "American Samoa", code: "AS" },
+      { name: "Andorra", code: "AD" },
+      { name: "Angola", code: "AO" },
+      { name: "Anguilla", code: "AI" },
+      { name: "Antarctica", code: "AQ" },
+      { name: "Antigua and Barbuda", code: "AG" },
+    ],
   };
 
   it("should return the initial state", () => {
@@ -57,7 +72,7 @@ describe("game reducer", () => {
 
   it("should set up the next level", () => {
     const { currentRound: nextRound, level: newLevel } = gameReducer(
-      initialState,
+      initialStateWithLoadedCountries,
       nextLevel()
     );
 
@@ -71,7 +86,7 @@ describe("game reducer", () => {
 
   it("should reset the state", () => {
     let state: GameState = {
-      ...initialState,
+      ...initialStateWithLoadedCountries,
       currentRound: {
         passed: false,
         answer: undefined,
@@ -79,7 +94,6 @@ describe("game reducer", () => {
         difficulty: { numOptions: 0, scoreForRightAnswer: 200 },
       },
       gameStatus: "lost",
-      countries: countries.slice(1, 10),
       lives: 2,
       level: 15,
       score: 15000,
@@ -89,7 +103,10 @@ describe("game reducer", () => {
   });
 
   it("should set an incorrect answer as clicked", () => {
-    let currentState = gameReducer(initialState, startGame());
+    let currentState = gameReducer(
+      initialStateWithLoadedCountries,
+      startGame()
+    );
     currentState = gameReducer(currentState, nextLevel());
 
     expect(
@@ -113,7 +130,10 @@ describe("game reducer", () => {
   });
 
   it("should increment score and mark round as passed", () => {
-    let currentState = gameReducer(initialState, startGame());
+    let currentState = gameReducer(
+      initialStateWithLoadedCountries,
+      startGame()
+    );
     currentState = gameReducer(currentState, nextLevel());
     currentState = gameReducer(currentState, correctAnswer());
 
