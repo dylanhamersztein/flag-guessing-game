@@ -10,9 +10,12 @@ export const GameInfo = (props: Props) => {
 
   return (
     <div className="score-row">
-      <h2>Level: {level}</h2>
-      <h2>Score: {playerScore}</h2>
-      <HeartRow numHearts={playerLives} />
+      <p>Level: {level}</p>
+      <p>Score: {playerScore}</p>
+      <div className="lives">
+        <p>Lives: </p>
+        <HeartRow numHearts={playerLives} />
+      </div>
     </div>
   );
 };
