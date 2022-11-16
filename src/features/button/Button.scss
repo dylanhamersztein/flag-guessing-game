@@ -2,10 +2,11 @@ $button-bg: #0e9f6e;
 $button-hover-bg: #bcf0da;
 
 .button {
-  padding: 1vw;
+  padding: 3.5%;
   background-color: $button-bg;
   border: 1px solid black;
   border-radius: 10px;
+  font-size: 1.1rem;
 
   &:hover {
     background-color: $button-hover-bg;

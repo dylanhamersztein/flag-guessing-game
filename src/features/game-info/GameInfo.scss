@@ -1,8 +1,24 @@
 .score-row {
-  width: 100%;
+  min-width: 100%;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
 
+  & > * {
+    margin: 0.5vh auto;
+  }
+
+  & > p {
+    font-size: 1.1rem;
+  }
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.lives {
+  display: flex;
   & > * {
     margin: auto;
   }
